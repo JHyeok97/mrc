@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "374045727102",
+    "firebase_url": "https://mbti-random-chatting-ae65d-default-rtdb.firebaseio.com",
+    "project_id": "mbti-random-chatting-ae65d",
+    "storage_bucket": "mbti-random-chatting-ae65d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374045727102:android:6515411b35fc00f0977b2f",
+        "android_client_info": {
+          "package_name": "org.techtown.mrc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374045727102-ma6tub4bjbujni8nc5jd39jf66h01rl0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV5ollfQXNuw0TCtYb44yQyBBJIkNUWic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374045727102-ma6tub4bjbujni8nc5jd39jf66h01rl0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
