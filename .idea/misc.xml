@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/MRC/app/src/main/res/layout/activity_chat.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/MRC/app/src/main/res/layout/activity_login.xml" value="0.175" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/MRC/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/MRC/app/src/main/res/layout/content_main.xml" value="0.175" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/MRC/app/src/main/res/layout/fragment_first.xml" value="0.175" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/MRC/app/src/main/res/layout/fragment_second.xml" value="0.175" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/MRC/app/src/main/res/layout/simplelist.xml" value="0.25" />
       </map>
     </option>
