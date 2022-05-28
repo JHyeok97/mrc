@@ -8,7 +8,7 @@
         android:title="Home"/>
 
     <item
-        android:id="@+id/anrtion_chat"
+        android:id="@+id/action_chat"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_chat_24"
         android:title="Chat"/>

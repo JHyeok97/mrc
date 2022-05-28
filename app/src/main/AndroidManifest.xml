@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MRC">
         <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".ChatActivity"
             android:exported="false"
             android:label="@string/title_activity_chat"
