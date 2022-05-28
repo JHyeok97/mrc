@@ -12,15 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MRC">
         <activity
+            android:name=".SignUpActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        <activity
             android:name=".ChatActivity"
             android:exported="false"
             android:label="@string/title_activity_chat"
             android:theme="@style/Theme.MRC.NoActionBar" />
         <activity
             android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.MRC.NoActionBar" >
+            android:theme="@style/Theme.MRC.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,8 +34,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
 
         <meta-data
             android:name="com.google.firebase.m1.vision.DEPENDENCIES"
