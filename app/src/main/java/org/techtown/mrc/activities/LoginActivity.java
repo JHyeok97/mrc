@@ -1,10 +1,8 @@
-package org.techtown.mrc;
+package org.techtown.mrc.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -12,20 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import org.techtown.mrc.databinding.ActivityLoginBinding;
 import org.techtown.mrc.utilities.Constants;
 import org.techtown.mrc.utilities.PreferenceManager;
-
-import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setListeners(){
         binding.textCreateNewAccount.setOnClickListener(v ->
-                startActivity(new Intent(getApplicationContext(),SignUpActivity.class)));
+                startActivity(new Intent(getApplicationContext(), SignUpActivity.class)));
         binding.buttonSignIn.setOnClickListener(v -> {
             if(isValidLoginDetails()){
                 Login();

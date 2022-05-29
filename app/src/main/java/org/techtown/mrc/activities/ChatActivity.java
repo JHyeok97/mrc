@@ -1,4 +1,4 @@
-package org.techtown.mrc;
+package org.techtown.mrc.activities;
 
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
@@ -28,6 +28,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.techtown.mrc.R;
 import org.techtown.mrc.databinding.ActivityChatBinding;
 
 public class ChatActivity extends AppCompatActivity {

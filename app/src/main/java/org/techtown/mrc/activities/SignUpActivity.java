@@ -1,4 +1,4 @@
-package org.techtown.mrc;
+package org.techtown.mrc.activities;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.techtown.mrc.activities.MainActivity;
 import org.techtown.mrc.databinding.ActivitySignUpBinding;
 import org.techtown.mrc.utilities.Constants;
 import org.techtown.mrc.utilities.PreferenceManager;

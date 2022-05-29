@@ -26,7 +26,7 @@
 
         <Button
             android:id="@+id/btn_send"
-            android:text="전송"
+            android:text="@string/전송"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
