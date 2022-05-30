@@ -1,9 +1,5 @@
 package org.techtown.mrc.activities;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,9 +11,11 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
-import org.techtown.mrc.activities.MainActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 import org.techtown.mrc.databinding.ActivitySignUpBinding;
 import org.techtown.mrc.utilities.Constants;
 import org.techtown.mrc.utilities.PreferenceManager;
@@ -87,10 +85,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private String encodeImage(Bitmap bitmap){
-        int previewWidth=150;
-        int previewHeight=bitmap.getHeight()*previewWidth / bitmap.getWidth();
-        Bitmap previewBitmap=Bitmap.createScaledBitmap(bitmap,previewWidth,previewHeight,false);
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        int previewWidth = 150;
+        int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
+        Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight,false);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         previewBitmap.compress(Bitmap.CompressFormat.JPEG,50,byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(bytes,Base64.DEFAULT);

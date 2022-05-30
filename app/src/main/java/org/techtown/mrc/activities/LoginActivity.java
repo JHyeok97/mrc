@@ -16,6 +16,8 @@ import org.techtown.mrc.databinding.ActivityLoginBinding;
 import org.techtown.mrc.utilities.Constants;
 import org.techtown.mrc.utilities.PreferenceManager;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
@@ -39,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.textCreateNewAccount.setOnClickListener(v ->
                 startActivity(new Intent(getApplicationContext(), SignUpActivity.class)));
         binding.buttonSignIn.setOnClickListener(v -> {
-            if(isValidLoginDetails()){
+            if (isValidLoginDetails()) {
                 Login();
             }
         });
