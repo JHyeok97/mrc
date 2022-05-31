@@ -12,16 +12,22 @@
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/MRC/app/src/main/res/layout/simplelist.xml" value="0.25" />
         <entry key="..\:/Users/lenovo/StudioProjects/mrc/app/src/main/res/layout/activity_chat.xml" value="0.175" />
         <entry key="..\:/Users/lenovo/StudioProjects/mrc/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
+        <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/background_chat_input.xml" value="0.1" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/background_content_bottom.xml" value="0.1" />
+        <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/background_content_top.xml" value="0.1" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/background_icon.xml" value="0.1215" />
+        <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/background_received_message.xml" value="0.1" />
+        <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/background_sent_message.xml" value="0.1" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.1895" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1215" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/drawable/ic_logout.xml" value="0.1" />
-        <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/activity_chat.xml" value="0.15353260869565216" />
+        <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/activity_chat.xml" value="0.1" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/activity_users.xml" value="0.1" />
+        <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/item_container_received_message.xml" value="0.24947916666666667" />
+        <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/item_container_sent_message.xml" value="0.24947916666666667" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/layout/item_container_user.xml" value="0.21693840579710144" />
         <entry key="..\:/android-sdk/mrc1/app/src/main/res/menu/bottom_navigation.xml" value="0.25364583333333335" />
       </map>

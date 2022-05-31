@@ -1,11 +1,16 @@
 package org.techtown.mrc.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,10 +22,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import androidx.navigation.NavController;
@@ -28,110 +42,112 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import org.techtown.mrc.R;
+import org.jetbrains.annotations.NotNull;
+import org.techtown.mrc.adapters.ChatAdapter;
 import org.techtown.mrc.databinding.ActivityChatBinding;
+import org.techtown.mrc.models.ChatMessage;
+import org.techtown.mrc.models.User;
+import org.techtown.mrc.utilities.Constants;
+import org.techtown.mrc.utilities.PreferenceManager;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private ListView lv_chating;
-    private EditText et_send;
-    private Button btn_send;
-
-    private ArrayAdapter<String> arrayAdapter;
-    private ArrayList<String> arr_room = new ArrayList<>();
-
-    private String str_room_name;
-    private String str_user_name;
-
-    private DatabaseReference reference;
-    private String key;
-    private String chat_user;
-    private String chat_message;
+    private ActivityChatBinding binding;
+    private User receiveUser;
+    private List<ChatMessage> chatMessages;
+    private ChatAdapter chatAdapter;
+    private PreferenceManager preferenceManager;
+    private FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-
-        et_send = (EditText) findViewById(R.id.et_send);
-        lv_chating = (ListView) findViewById(R.id.lv_chating);
-        btn_send = (Button) findViewById(R.id.btn_send);
-
-        str_room_name = getIntent().getExtras().get("room_name").toString();
-        str_user_name = getIntent().getExtras().get("user_name").toString();
-        reference = FirebaseDatabase.getInstance().getReference().child(str_room_name);
-
-        setTitle(str_room_name + "채팅방");
-
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr_room);
-        lv_chating.setAdapter(arrayAdapter);
-        // 리스트 뷰가 갱신될 때 하단으로 자동 스크롤
-        lv_chating.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-
-        btn_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //map을 사용해 name과 메시지를 가져오고, key에 값을 요청한다.
-                Map<String, Object> map = new HashMap<String, Object>();
-                key = reference.push().getKey();
-                reference.updateChildren(map);
-
-                DatabaseReference root = reference.child(key);
-
-                //updateChildren을 호출하여 database에 최종 업데이트
-                Map<String, Object> objectMap = new HashMap<String,Object>();
-                objectMap.put("name", str_user_name);
-                objectMap.put("message", et_send.getText().toString());
-
-                root.updateChildren(objectMap);
-
-                et_send.setText("");
-            }
-        });
-
-        reference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                chatConversation(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                chatConversation(dataSnapshot);
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        binding = ActivityChatBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setListeners();
+        loadReceiverDetails();
+        init();
+        listenMessage();
     }
 
-    // addChildEvendListener를 통해 실제 데이터베이스에 변경된 값이 있으면
-    // 화면에 보여지고 있는 Listview의 값을 갱신한다.
-    private void chatConversation(DataSnapshot dataSnapshot){
-        Iterator i = dataSnapshot.getChildren().iterator();
+    private void init(){
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        chatMessages = new ArrayList<>();
+        chatAdapter = new ChatAdapter(
+                chatMessages,
+                getBitmapFromEncodedString(receiveUser.image),
+                preferenceManager.getString(Constants.KEY_USER_ID)
+        );
+        binding.chatRecyclerView.setAdapter(chatAdapter);
+        database = FirebaseFirestore.getInstance();
+    }
 
-        while (i.hasNext()){
-            chat_message = (String) ((DataSnapshot) i.next()).getValue();
-            chat_user = (String) ((DataSnapshot) i.next()).getValue();
+    private void sendMessage(){
+        HashMap<String, Object> message = new HashMap<>();
+        message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+        message.put(Constants.KEY_RECEIVER_ID, receiveUser.id);
+        message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
+        message.put(Constants.KEY_TIMESTAMP, new Date());
+        database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+        binding.inputMessage.setText(null);
+    }
 
-            arrayAdapter.add(chat_user + " : " + chat_message);
+    private  void listenMessage() {
+        database.collection(Constants.KEY_COLLECTION_CHAT)
+                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiveUser.id)
+                .addSnapshotListener(eventListener);
+        database.collection(Constants.KEY_COLLECTION_CHAT)
+                .whereEqualTo(Constants.KEY_SENDER_ID, receiveUser.id)
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
+                .addSnapshotListener(eventListener);
+    }
+
+    private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
+        if (error != null) {
+            return;
         }
+        if (value != null) {
+            int count = chatMessages.size();
+            for(DocumentChange documentChange : value.getDocumentChanges()){
+                if(documentChange.getType() == DocumentChange.Type.ADDED){
+                    ChatMessage chatMessage = new ChatMessage();
+                    chatMessage.senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
+                    chatMessage.receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
+                    chatMessage.message = documentChange.getDocument().getString(Constants.KEY_MESSAGE);
+                    chatMessage.dateTime = getReadableDateTime(documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP));
+                    chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
+                    chatMessages.add(chatMessage);
+                }
+            }
+            Collections.sort(chatMessages, (obj1, obj2) -> obj1.dateObject.compareTo(obj2.dateObject));
+            if(count == 0){
+                chatAdapter.notifyDataSetChanged();
+            }else {
+                chatAdapter.notifyItemRangeInserted(chatMessages.size(), chatMessages.size());
+                binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size() - 1);
+            }
+            binding.chatRecyclerView.setVisibility(View.VISIBLE);
+        }
+        binding.progressBar.setVisibility(View.GONE);
+    };
 
-        arrayAdapter.notifyDataSetChanged();
+    private Bitmap getBitmapFromEncodedString(String encodedImage){
+        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
+    private void loadReceiverDetails(){
+        receiveUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);
+        binding.textName.setText(receiveUser.name);
+    }
+
+    private void setListeners(){
+        binding.imageBack.setOnClickListener(v -> onBackPressed());
+        binding.layoutSend.setOnClickListener(v -> sendMessage());
+    }
+
+    private String getReadableDateTime(Date date){
+        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
+    }
 }
