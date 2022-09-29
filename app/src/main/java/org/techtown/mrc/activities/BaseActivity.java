@@ -1,4 +1,6 @@
 package org.techtown.mrc.activities;
 
-public class BaseActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class BaseActivity extends AppCompatActivity {
 }
