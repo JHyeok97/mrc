@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
        android:layout_marginTop="@dimen/_40sdp"
-            android:text="@string/mbti"
+            android:text="@string/FriendTalk"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/_18ssp"
             android:textStyle="bold"/>

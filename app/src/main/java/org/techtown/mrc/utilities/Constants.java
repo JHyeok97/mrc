@@ -1,5 +1,7 @@
 package org.techtown.mrc.utilities;
 
+import java.util.HashMap;
+
 public class Constants {
     public static final String KEY_COLLECTION_USERS ="users";
     public static final String KEY_NAME="name";
@@ -23,4 +25,25 @@ public class Constants {
     public static final String KEY_RECEIVER_IMAGE = "receiverImage";
     public static final String KEY_LAST_MESSAGE = "lastMessage";
     public static final String KEY_AVAILABILITY = "availability";
+    public static final String REMOTE_MSG_AUTHORIZATION = "Authorization";
+    public static final String REMOTE_MSG_CONTENT_TYPE = "Content-Type";
+    public static final String REMOTE_MSG_DATA = "data";
+    public static final String REMOTE_MSG_REGISTRATION_IDS = "registration_ids";
+
+    public static HashMap<String, String> remoteMsgHeaders = null;
+
+    public static HashMap<String, String> getRemoteMsgHeaders() {
+        if(remoteMsgHeaders == null) {
+            remoteMsgHeaders = new HashMap<>();
+            remoteMsgHeaders.put(
+                    REMOTE_MSG_AUTHORIZATION,
+                    "AAAAVxbc2X4:APA91bEtDp-AZ6rlvgKzZAflOKvdZ4XT53GC4VHUGhfl14zysjuwvuXrF-CTRwzT7uJ5vXg_hoowzbDsaDvD4jblScjtOZl6DMX-36xO0Vdqt4-wGK6s3EWAq69fQ92XlOF4eF9RdVoV"
+            );
+            remoteMsgHeaders.put(
+                    REMOTE_MSG_CONTENT_TYPE,
+                    "application/json"
+            );
+        }
+        return remoteMsgHeaders;
+    }
 }
