@@ -135,7 +135,7 @@ public class SignUpActivity extends AppCompatActivity {
             showToast("비밀번호 확인을 해주세요");
             return false;
         }else if(!binding.inputPassword.getText().toString().equals(binding.inputConfirmPassword.getText().toString())){
-            showToast("비밀번호와 비밀번호 확인이 동일하지 않습니다");
+            showToast("비밀번호와 비밀번호 확인이 일치하지 않습니다");
             return false;
         }else{
             return true;

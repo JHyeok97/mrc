@@ -39,7 +39,7 @@ public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConve
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ConversionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecentConversationsAdapter.ConversionViewHolder holder, int position) {
         holder.setData(chatMessages.get(position));
     }
 

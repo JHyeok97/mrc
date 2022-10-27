@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }else{
                         loading(false);
-                        showToast("로그인 할 수 없음");
+                        showToast("잘못된 이메일/비밀번호 입니다");
                     }
                 });
     }
